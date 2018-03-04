@@ -19,10 +19,13 @@ int main(int argv, char *argc[])
 			rect.y = 300;
 			rect.w = 120;
 			rect.h = 120;
-			struct bullet {
-
-			};
-			
+			SDL_Rect bullet[10];
+			for (int i = 0; i < 10; i++) {
+				bullet[i].x = NULL;
+				bullet[i].y = NULL;
+				bullet[i].w = NULL;
+				bullet[i].h = NULL;
+			}
 
 			rend = SDL_CreateRenderer(win, -1, 0);
 			SDL_SetRenderDrawColor(rend, 0, 0, 255, 255);
@@ -41,15 +44,27 @@ int main(int argv, char *argc[])
 						switch (event.key.keysym.sym) {
 						case SDLK_RIGHT:
 							rect.x += 10; 
+							if (rect.x > 520) {
+								rect.x = 520;
+							}
 							break;
 						case SDLK_LEFT:
 							rect.x -= 10;
+							if (rect.x < 0) {
+								rect.x = 0;
+							}
 							break;
 						case SDLK_UP:
 							rect.y -= 10;
+							if (rect.y < 0) {
+								rect.y = 0;
+							}
 							break;
 						case SDLK_DOWN:
 							rect.y += 10;
+							if (rect.y > 360) {
+								rect.y = 360;
+							}
 							break;
 						case SDLK_SPACE:
 							shootexists = true;
@@ -132,10 +147,10 @@ int main(int argv, char *argc[])
 				
 				
 				if (shootexists) {
-					
-						SDL_RenderFillRect(rend, &bullet[c]);
-						bullet[c].x += 15;
-					
+					for (int i = 0; i < 10; i++) {
+						SDL_RenderFillRect(rend, &bullet[i]);
+						bullet[i].x += 15;
+					}
 				}
 				SDL_RenderPresent(rend);
 				SDL_SetRenderDrawColor(rend, 0, 0, 255, 255);
